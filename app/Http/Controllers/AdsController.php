@@ -40,7 +40,7 @@ class AdsController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|string',
-            'description' => 'required|string|regex:/^[0-9A-Za-z]/',
+            'description' => 'required|string|regex:/[\w]/',
             'video' => 'nullable'
         ]);
 
