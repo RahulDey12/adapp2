@@ -43,7 +43,7 @@ class AdsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|string',
+            'title' => 'required|string|regex:/^[\w ]+$/',
             'description' => 'required|string|regex:/^[\w\s]+$/',
             'video' => 'nullable'
         ]);
