@@ -9,6 +9,10 @@ use Auth;
 
 class AdsController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -40,7 +44,7 @@ class AdsController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|string',
-            'description' => 'required|string|regex:/[\w\s]+/',
+            'description' => 'required|string|regex:/^[\w\s]+$/',
             'video' => 'nullable'
         ]);
 
