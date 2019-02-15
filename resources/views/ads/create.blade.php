@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-8">
-               {!! Form::open(['action' => 'AdsController@store', 'method' => 'POST']) !!}
+               {!! Form::open(['action' => 'AdsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                     {{-- Title --}}
                     <div class="form-group">
                         {!! Form::label('title', 'Title') !!}

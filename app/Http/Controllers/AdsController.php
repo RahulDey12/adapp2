@@ -31,6 +31,9 @@ class AdsController extends Controller
      */
     public function create()
     {
+        if(!Auth::user()->hasRole('advertiser')) {
+            return abort('401');
+        }
         return view('ads.create');
     }
 
@@ -45,11 +48,11 @@ class AdsController extends Controller
         $this->validate($request, [
             'title' => 'required|string|regex:/^[\w ]+$/',
             'description' => 'required|string|regex:/^[\w\s]+$/',
-            'video' => 'nullable'
+            'video' => 'nullable|mimes:mp4|max:20000',
         ]);
 
         if(!Auth::user()->hasRole('advertiser')) {
-            return abort('503');
+            return abort('401');
         }
 
         
@@ -74,7 +77,9 @@ class AdsController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!Auth::user()->hasRole('advertiser')) {
+            return abort('401');
+        }
     }
 
     /**
@@ -86,7 +91,9 @@ class AdsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(!Auth::user()->hasRole('advertiser')) {
+            return abort('401');
+        }
     }
 
     /**
@@ -97,6 +104,8 @@ class AdsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(!Auth::user()->hasRole('advertiser')) {
+            return abort('401');
+        }
     }
 }
