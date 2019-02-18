@@ -48,13 +48,34 @@ class AdsController extends Controller
         $this->validate($request, [
             'title' => 'required|string|regex:/^[\w ]+$/',
             'description' => 'required|string|regex:/^[\w\s]+$/',
-            'video' => 'nullable|mimes:mp4|max:20000',
+            'video' => 'nullable|mimes:mp4|max:19999',
         ]);
 
         if(!Auth::user()->hasRole('advertiser')) {
             return abort('401');
         }
 
+        if($request->hasFile('video')) {
+            if( $request->file('video')->isValid() ) {
+                $vidWithExt = $request->file('video')->getClientOriginalName();
+                $vidName = pathinfo($vidWithExt, PATHINFO_FILENAME);
+                $vidNewName = preg_replace('/[\s]+/', '_', $vidName);
+                $vidExt = $request->file('video')->getClientOriginalExtension();
+                $vidToUpload = $vidNewName.'_'.time().'.'.$vidExt;
+                $request->file('video')->storeAs('public/ad_vid', $vidToUpload);
+            }
+        }else {
+            $vidToUpload = null;
+        }
+
+        $ad = new Ads;
+        $ad->title = $request->input('title');
+        $ad->body = $request->input('description');
+        $ad->vid_uri = $vidToUpload;
+        $ad->adv_id = Auth::user()->id;
+        $ad->save();
+
+        return redirect('/ads')->with('success', 'Ad Created');
         
     }
 
