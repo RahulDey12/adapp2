@@ -4,7 +4,7 @@
         <div class="row justify-content-center">
             <div class="col-8" data-spy="scroll" data-offset="0">
                 <?php $invalid_class = 'form-control is-invalid' ?>
-                {!! Form::open(['action' => 'ProfileController@update', 'method' => 'POST']) !!}
+                {!! Form::open(['action' => 'ProfileController@update', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
                     {{-- Name --}}
                     <div class="form-group">
                         {!! Form::label('name', 'Name') !!}
@@ -61,6 +61,15 @@
                         @endif
                     </div>
                     {{-- Profile img --}}
+                    <div class="form-group">
+                        {!! Form::label('img', 'img') !!}
+                        {!! Form::file('img', ['class' => $errors->has('img') ? $invalid_class : 'form-control-file', 'id' => 'img']) !!}
+                        @if($errors->has('img'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('img') }}</strong>
+                            </span>
+                        @endif
+                    </div>
                     {!! Form::hidden('_method', 'PUT') !!}
                     {!! Form::submit('Update Profile', ['class' => 'btn btn-primary']) !!}
                 {!! Form::close() !!}

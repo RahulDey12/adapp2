@@ -34,14 +34,30 @@ class ProfileController extends Controller
         $user = User::find($user_id);
 
         $this->validate($request, [
-            'name' => 'required|string|max:50',
+            'name' => 'nullable|string|max:50',
             'bio' => 'string|max:100|nullable',
             'dob' => 'date|nullable',
             'job' => 'string|nullable',
+            'img' => 'nullable|mimes:jpeg,png,jpg|max:1999',
         ]);
 
-        $user->name = $request->input('name');
-        $user->save();
+        if($request->hasFile('img')) {
+            if($request->file('img')->isValid()) {
+                $imgWithExt = $request->file('img')->getClientOriginalName();
+                $imgName = pathinfo($imgWithExt, PATHINFO_FILENAME);
+                $imgNewName = preg_replace('/[\s]+/', '_', $imgName);
+                $imgExt = $request->file('img')->getClientOriginalExtension();
+                $imgToUpload = $imgNewName.'_'.time().'.'.$imgExt;
+                $request->file('img')->storeAs('public/profile_img', $imgToUpload);
+            }
+        }else {
+            $imgToUpload = null;
+        }
+
+        if($request->input('name') !== null) {
+            $user->name = $request->input('name');
+            $user->save();
+        }
         
         foreach($user->profile as $meta) {
             
@@ -58,6 +74,11 @@ class ProfileController extends Controller
 
                 case 'meta_job':
                     $meta->meta_value = $request->input('job');
+                    $meta->save();
+                break;
+
+                case 'meta_profile_pic':
+                    $meta->meta_value = $imgToUpload;
                     $meta->save();
                 break;
             }
