@@ -10,12 +10,12 @@
     <br>
     {{-- Date Of Birth --}}
     @if( $profile_meta->where('meta_key', 'meta_dob')->first()->meta_value !== null )
-        <p>Date Of Birth: {{ date('d-m-Y', strtotime($profile_meta->where('meta_key', 'meta_dob')->first()->meta_value)) }}</p>
+        <p><b>Date Of Birth</b>: {{ date('d-m-Y', strtotime($profile_meta->where('meta_key', 'meta_dob')->first()->meta_value)) }}</p>
         <br>
     @endif
     {{-- Job --}}
     @if( $profile_meta->where('meta_key', 'meta_job')->first()->meta_value !== null )
-        <p>Job: {{ $profile_meta->where('meta_key', 'meta_job')->first()->meta_value }}</p>
+        <p><b>Job</b>: {{ $profile_meta->where('meta_key', 'meta_job')->first()->meta_value }}</p>
     @endif
 </div>
 {{-- Contact Section --}}
