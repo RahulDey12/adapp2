@@ -10491,6 +10491,44 @@ a.text-dark:focus {
   }
 }
 
+.profile-img {
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  box-shadow: 0px 0px 0 2px black;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+.role-name {
+  border: 2px solid #37D993;
+  border-radius: 0;
+  text-transform: uppercase;
+  color: #37D993;
+  cursor: auto !important;
+}
+
+.role-name:hover {
+  color: #37D993;
+}
+
+.profile-sec h2 {
+  font-size: 1.7em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  color: #808080;
+}
+
+.profile-sec ul li {
+  font-size: 1.2em;
+}
+
+.profile-sec ul li i {
+  color: #565656;
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

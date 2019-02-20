@@ -35,7 +35,7 @@ class ProfileController extends Controller
 
         $this->validate($request, [
             'name' => 'nullable|string|max:50',
-            'bio' => 'string|max:100|nullable',
+            'bio' => 'string|max:1000|nullable',
             'dob' => 'date|nullable',
             'job' => 'string|nullable',
             'img' => 'nullable|mimes:jpeg,png,jpg|max:1999',
