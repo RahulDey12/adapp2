@@ -10500,6 +10500,15 @@ a.text-dark:focus {
   box-shadow: 0px 0px 0 2px black;
   margin: 0 auto;
   background-color: #fff;
+  position: relative;
+}
+
+.profile-img img {
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  position: absolute;
+  left: 50%;
+  top: 50%;
 }
 
 .role-name {
