@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.5.22"
     },
     "dependencies": {
+        "js-cookie": "^2.2.0",
         "npm": "^6.8.0"
     }
 }

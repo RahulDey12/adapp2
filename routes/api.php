@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('adsdetails', 'AdDetails@index');
+Route::post('adsdetail', 'AdDetails@store');
+Route::put('adsdetails/{id}', 'AdDetails@update');

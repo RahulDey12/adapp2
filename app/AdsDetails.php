@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Ads extends Model
+class AdsDetails extends Model
 {
-    protected $table = "ads";
+    protected $table = 'ads_details';
 
     public function user() {
         return $this->belongsTo('App\User');
     }
 
-    public function adDetails() {
-        return $this->hasMany('App\AdsDetails');
+    public function ads() {
+        return $this->belongsTo('App\Ads');
     }
 }

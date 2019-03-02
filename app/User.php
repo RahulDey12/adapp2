@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'username',
+        'name', 'email', 'password', 'username', 'api_token',
     ];
 
     /**
@@ -40,6 +40,10 @@ class User extends Authenticatable
 
     public function ads() {
         return $this->hasMany('App\Ads');
+    }
+
+    public function AdsDetails() {
+        return $this->hasMany('App\AdsDetails');
     }
 
     /*

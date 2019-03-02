@@ -85,9 +85,17 @@ class AdsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
         $ad = Ads::findOrFail($id);
+        // Generate ad token
+        $ad_token = bin2hex(openssl_random_pseudo_bytes(30));
+        setCookie('ad_token', $ad_token, 0);
+        // Add Cookie for api_token
+        if(!isset($_COOKIE['api_token'])) {
+            setCookie('api_token', Auth::user()->api_token, 0);
+        }
+        return view('ads.show')->with('ad', $ad);
     }
 
     /**
