@@ -10538,6 +10538,144 @@ a.text-dark:focus {
   color: #565656;
 }
 
+.player {
+  width: 100%;
+  position: relative;
+  transition: all 0.5s;
+}
+
+.player #adVid {
+  width: 100%;
+  min-height: 400px;
+  max-height: 600px;
+  background: #000;
+}
+
+.player .player_control {
+  position: absolute;
+  width: 100%;
+  bottom: 7px;
+}
+
+.player .player_control .progress {
+  height: 4px;
+  border-radius: 0;
+  margin-bottom: 10px;
+}
+
+.player .left-control {
+  float: left;
+  height: 40px;
+  overflow: hidden;
+  display: none;
+  transition: all 0.5s;
+}
+
+.player .right-control {
+  float: right;
+  height: 40px;
+  display: none;
+  transition: all 0.5s;
+}
+
+.player button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+}
+
+.player button i {
+  color: #eee;
+}
+
+.player button i:hover {
+  color: #fff;
+}
+
+.player button:focus {
+  outline: none;
+}
+
+.player input[type=range] {
+  height: 30px;
+  width: 52px;
+  -webkit-appearance: none;
+  background: transparent;
+}
+
+.player input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #fff;
+  margin-top: -5px;
+  cursor: pointer;
+}
+
+.player input[type=range]::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #fff;
+  margin-top: -5px;
+  cursor: pointer;
+}
+
+.player input[type=range]::-ms-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #fff;
+  margin-top: -5px;
+  cursor: pointer;
+}
+
+.player input[type=range]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.player input[type=range]::-moz-range-track {
+  height: 4px;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.player input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+  height: 4px;
+  border-radius: 10px;
+  background: #fff;
+  /* Hides the slider so custom styles can be added */
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+.player input[type=range]:focus {
+  outline: none;
+}
+
+.player p {
+  color: #fff;
+  padding-left: 15px;
+  height: 30px;
+  line-height: 2.2;
+}
+
+.player:hover .left-control {
+  display: flex;
+}
+
+.player:hover .right-control {
+  display: flex;
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

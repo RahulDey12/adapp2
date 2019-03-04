@@ -48283,22 +48283,101 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 $(document).ready(function () {
-  if ($('#ad').length > 0) {
-    var data = {
-      'ad_id': $('#ad').data('ad'),
-      'ad_token': Cookies.get('ad_token')
+  if ($('video#adVid').length > 0) {
+    // Video Funcions
+    var playVid = function playVid() {
+      var method = viewer.paused ? 'play' : 'pause';
+      viewer[method]();
     };
-    var headers = {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + Cookies.get('api_token')
+
+    var btnUpd = function btnUpd() {
+      var iconPlay = '<i class="fas fa-play"></i>';
+      var iconPause = '<i class="fas fa-pause"></i>';
+      var icon = viewer.paused ? iconPlay : iconPause;
+      playToggle.innerHTML = icon;
     };
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/adsdetail', data, {
-      headers: headers
-    }).then(function (res) {
-      console.log(res);
-    }).catch(function (err) {
-      console.log(err);
-    });
+
+    var fullScreenToggle = function fullScreenToggle() {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        player.requestFullscreen();
+      }
+    };
+
+    var volumeUpd = function volumeUpd() {
+      viewer.volume = vol.value;
+
+      if (viewer.volume == 0) {
+        muteToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+      } else {
+        muteToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+      }
+    };
+
+    var timeUpd = function timeUpd() {
+      if (viewer.paused) {
+        viewer.onloadedmetadata = function () {
+          var duration = parseInt(Math.round(viewer.duration) / 60) + ':' + (Math.round(viewer.duration) - parseInt(Math.round(viewer.duration) / 60) * 60);
+          var currentTime = parseInt(Math.round(viewer.currentTime) / 60) + ':' + (Math.round(viewer.currentTime) - parseInt(Math.round(viewer.currentTime) / 60) * 60);
+          playbackTime.innerHTML = "".concat(currentTime, " / ").concat(duration);
+        };
+      } else {
+        var duration = parseInt(Math.round(viewer.duration) / 60) + ':' + (Math.round(viewer.duration) - parseInt(Math.round(viewer.duration) / 60) * 60);
+        var currentTime = parseInt(Math.round(viewer.currentTime) / 60) + ':' + (Math.round(viewer.currentTime) - parseInt(Math.round(viewer.currentTime) / 60) * 60);
+        playbackTime.innerHTML = "".concat(currentTime, " / ").concat(duration);
+      }
+    };
+
+    var progressUpd = function progressUpd() {
+      var progressPercent = viewer.currentTime / viewer.duration * 100;
+      progressBar.style.width = "".concat(progressPercent, "%");
+      progressBar.dataset.areaValuenow = progressPercent;
+    }; // Video Event Listeners
+
+
+    // Add AD details on database
+    if (Cookies.get('ad_token') && Cookies.get('api_token')) {
+      var data = {
+        'ad_id': $('video#adVid').data('ad'),
+        'ad_token': Cookies.get('ad_token')
+      };
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + Cookies.get('api_token')
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/adsdetails', data, {
+        headers: headers
+      }).then(function (res) {
+        console.log(res);
+      }).catch(function (err) {
+        console.log(err);
+      }); // Update AD detail on Play or Pause video
+    } else {
+      alert('Something wents wrong try to Refresh this page');
+    }
+
+    var player = document.querySelector('.player');
+    var viewer = player.querySelector('#adVid');
+    var progressBar = player.querySelector('.progress-bar');
+    var playToggle = player.querySelector('.playToggle');
+    var vol = player.querySelector('.vol');
+    var muteToggle = player.querySelector('.muteToggle');
+    var fullScreen = player.querySelector('.fullScreen');
+    var playbackTime = player.querySelector('.playback-time');
+    viewer.controls = false;
+    playToggle.addEventListener('click', playVid);
+    btnUpd();
+    viewer.addEventListener('click', playVid);
+    viewer.addEventListener('pause', btnUpd);
+    viewer.addEventListener('play', btnUpd);
+    fullScreen.addEventListener('click', fullScreenToggle);
+    vol.addEventListener('click', volumeUpd);
+    vol.addEventListener('change', volumeUpd);
+    vol.addEventListener('mousemove', volumeUpd);
+    timeUpd();
+    viewer.addEventListener('timeupdate', timeUpd);
+    viewer.addEventListener('timeupdate', progressUpd);
   }
 });
 

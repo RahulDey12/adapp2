@@ -47,3 +47,142 @@
         }
     }
 }
+
+.player {
+    width: 100%;
+    position: relative;
+    transition: all 0.5s;
+
+    #adVid {
+        width: 100%;
+        min-height: 400px;
+        max-height: 600px;
+        background: #000;
+    }
+
+    .player_control {
+        position: absolute;
+        width: 100%;
+        bottom: 7px;
+
+        .progress {
+            height: 4px;
+            border-radius: 0;
+            margin-bottom: 10px;
+        }
+    }
+
+    .left-control {
+        float: left;
+        height: 40px;
+        overflow: hidden;
+        display: none;
+        transition: all 0.5s;
+    }
+
+    .right-control {
+        float: right;
+        height: 40px;
+        display: none;
+        transition: all 0.5s;
+    }
+
+    button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        height: 30px;
+        width: 30px;
+
+        i {
+            color: #eee;
+
+            &:hover {
+                color: #fff;
+            }
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    input[type=range] {
+        height: 30px;
+        width: 52px;
+        -webkit-appearance: none;
+        background: transparent;
+
+        &::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #fff;
+            margin-top: -5px;
+            cursor: pointer;
+          }
+
+        &::-moz-range-thumb {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #fff;
+            margin-top: -5px;
+            cursor: pointer;
+        }
+
+        &::-ms-thumb {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #fff;
+            margin-top: -5px;
+            cursor: pointer;
+        }
+
+        &::-webkit-slider-runnable-track {
+            height: 4px;
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        &::-moz-range-track {
+            height: 4px;
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        &::-ms-track {
+            width: 100%;
+            cursor: pointer;
+            height: 4px;
+            border-radius: 10px;
+            background: #fff;
+
+            /* Hides the slider so custom styles can be added */
+            background: transparent; 
+            border-color: transparent;
+            color: transparent;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    p {
+        color: #fff;
+        padding-left: 15px;
+        height: 30px;
+        line-height: 2.2;
+    }
+
+    &:hover .left-control {
+        display: flex;
+    }
+
+    &:hover .right-control {
+        display: flex;
+    }
+}
