@@ -18,5 +18,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('adsdetails', 'AdDetails@index');
+Route::get('adsdetail/{id}', 'AdDetails@show');
 Route::post('adsdetails', 'AdDetails@store');
-Route::put('adsdetails/{id}', 'AdDetails@update');
+Route::put('adsdetail/{id}', 'AdDetails@update');

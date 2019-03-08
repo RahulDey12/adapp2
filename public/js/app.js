@@ -48139,6 +48139,8 @@ var app = new Vue({
 
 __webpack_require__(/*! ./custom */ "./resources/js/custom.js");
 
+__webpack_require__(/*! ./videoPlayer */ "./resources/js/videoPlayer.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -48284,6 +48286,47 @@ __webpack_require__.r(__webpack_exports__);
 
 $(document).ready(function () {
   if ($('video#adVid').length > 0) {
+    // Add AD details on database
+    if (Cookies.get('ad_token') && Cookies.get('api_token')) {
+      var data = {
+        'ad_id': $('video#adVid').data('ad'),
+        'ad_token': Cookies.get('ad_token')
+      };
+      var headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + Cookies.get('api_token')
+      };
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/adsdetails', data, {
+        headers: headers
+      }).then(function (res) {
+        sessionStorage.removeItem('details_id');
+        var details_id = res.data.data.id;
+        sessionStorage.setItem('details_id', details_id);
+      }).catch(function (err) {
+        console.log(err);
+      }); // Update AD detail on Play or Pause video
+
+      var ad = document.querySelector('#adVid');
+      var details_id = sessionStorage.getItem('details_id');
+      sessionStorage.removeItem('details_id');
+      console.log(details_id);
+    } else {
+      alert('Something wents wrong try to Refresh this page');
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/videoPlayer.js":
+/*!*************************************!*\
+  !*** ./resources/js/videoPlayer.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  if ($('.player').length > 0) {
     // Video Funcions
     var playVid = function playVid() {
       var method = viewer.paused ? 'play' : 'pause';
@@ -48335,27 +48378,6 @@ $(document).ready(function () {
       progressBar.dataset.areaValuenow = progressPercent;
     }; // Video Event Listeners
 
-
-    // Add AD details on database
-    if (Cookies.get('ad_token') && Cookies.get('api_token')) {
-      var data = {
-        'ad_id': $('video#adVid').data('ad'),
-        'ad_token': Cookies.get('ad_token')
-      };
-      var headers = {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + Cookies.get('api_token')
-      };
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/adsdetails', data, {
-        headers: headers
-      }).then(function (res) {
-        console.log(res);
-      }).catch(function (err) {
-        console.log(err);
-      }); // Update AD detail on Play or Pause video
-    } else {
-      alert('Something wents wrong try to Refresh this page');
-    }
 
     var player = document.querySelector('.player');
     var viewer = player.querySelector('#adVid');

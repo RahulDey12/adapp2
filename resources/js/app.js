@@ -33,3 +33,4 @@ const app = new Vue({
 });
 
 require('./custom');
+require('./videoPlayer');
